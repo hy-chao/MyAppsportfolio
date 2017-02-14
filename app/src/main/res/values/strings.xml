@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">我的应用作品集</string>
     <string name="action_settings">Settings</string>
+    <string-array name="Buttons_name">
+        <item>热门电影</item>
+        <item>股票雄鹰</item>
+        <item>XYZ阅读器</item>
+        <item>最新闻</item>
+        <item>毕业设计</item>
+    </string-array>
+    <string name="tt">热门电影</string>
+    <string name="flag">纳米学位应用</string>
+    <string name="st">启动应用：</string>
 </resources>

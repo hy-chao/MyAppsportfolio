@@ -1,5 +1,6 @@
 package com.appsportfolio.hyc.myappsportfolio;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,13 +17,17 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.app.Activity;
+import android.content.Context;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private LinearLayout linearLayout;
-    private String[] str = {"热门电影","股票雄鹰","XYZ阅读器", "最新闻", "毕业设计"};
+    private String[] str;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        str = getResources().getStringArray(R.array.Buttons_name); // 从xml中获取button内容
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,25 +41,34 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        Button one = (Button) findViewById(R.id.one);  //绑定按键1
-        one.setOnClickListener(new View.OnClickListener(){   //设置触发事件
-            public void onClick(View view) {
-                Toast toast = Toast.makeText(getApplicationContext(),"启动应用：热门电影",Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+//        Button one = (Button) findViewById(R.id.one);  //绑定按键1
+//        one.setOnClickListener(new View.OnClickListener(){   //设置触发事件
+//            public void onClick(View view) {
+//                Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.st) + str[0],Toast.LENGTH_SHORT);
+//                toast.show();
+//            }
+//        });
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
 
-        for(int i = 1; i < 5; i++)
+        for(int i = 0; i < 5; i++)
         {
             Button btn = new Button(this);
-            btn.setId(i);
             btn.setText(str[i]);
+            btn.setBackgroundColor(getResources().getColor(R.color.colorButton));
+            btn.setTextColor(getResources().getColor(R.color.colorWhite));
+            btn.setTextSize(27);
             btn.setOnClickListener(new btnListener(btn, i));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.
+            LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(dp2px(this, 65), dp2px(this, 20), dp2px(this, 65), 0);
+            btn.setLayoutParams(params);
             linearLayout.addView(btn);
         }
     }
-
+    public static int dp2px(Context context, float dpValue) {    //dp转换为px
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,13 +93,21 @@ public class MainActivity extends AppCompatActivity {
     class btnListener implements OnClickListener { //事件监听器类
         private Button btn;
         private int i;
-        //private String[] str = {"热门电影","股票雄鹰","XYZ阅读器", "最新闻", "毕业设计"};
         private btnListener(Button btn, int n) {
             this.btn = btn;
             i = n;
         }
+//        private Toast mToast = null;
+//        private void showToast(int resId) {
+//            if(mToast == null) {
+//                mToast = mToast.makeText(getApplicationContext(), resId, Toast.LENGTH_SHORT);
+//            } else {
+//                mToast.setText(resId);
+//            }
+//            mToast.show();
+//        }
         public void onClick(View v) {
-            Toast toast = Toast.makeText(getApplicationContext(),"启动应用：" + str[i],Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.st) + str[i],Toast.LENGTH_SHORT);
             toast.show();
         }
     }
